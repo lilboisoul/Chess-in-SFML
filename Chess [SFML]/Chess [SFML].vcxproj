@@ -153,20 +153,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Source\Scenes\SetupGameScene.cpp" />
+    <ClCompile Include="Source\FEN.cpp" />
+    <ClCompile Include="Source\Entities\Board.cpp" />
     <ClCompile Include="Source\Utility\Resources.cpp" />
     <ClCompile Include="Source\Scenes\MenuScene.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Scenes\GameScene.cpp" />
+    <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h" />
+    <ClInclude Include="Source\Scenes\SetupGameScene.h" />
+    <ClInclude Include="Source\FEN.h" />
+    <ClInclude Include="Source\Entities\Board.h" />
     <ClInclude Include="Source\Utility\Resources.h" />
     <ClInclude Include="Source\Scenes\MenuScene.h" />
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Scenes\GameScene.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
+    <ClInclude Include="Source\Entities\Square.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\bB.png" />
+    <Image Include="Resources\bK.png" />
+    <Image Include="Resources\bN.png" />
+    <Image Include="Resources\bP.png" />
+    <Image Include="Resources\bQ.png" />
+    <Image Include="Resources\bR.png" />
+    <Image Include="Resources\wB.png" />
+    <Image Include="Resources\wK.png" />
+    <Image Include="Resources\wN.png" />
+    <Image Include="Resources\wP.png" />
+    <Image Include="Resources\wQ.png" />
+    <Image Include="Resources\wR.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

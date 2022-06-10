@@ -30,7 +30,16 @@
     <ClCompile Include="Source\Utility\Resources.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
+    <ClCompile Include="Source\Entities\Board.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FEN.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\SetupGameScene.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entities\Square.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,8 +59,55 @@
     <ClInclude Include="Source\Utility\Resources.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
+    <ClInclude Include="Source\Entities\Board.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FEN.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\SetupGameScene.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entities\Square.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\bB.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\bK.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\bN.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\bP.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\bQ.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wB.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\bR.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wK.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wN.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wP.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wQ.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="Resources\wR.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
   </ItemGroup>
 </Project>
