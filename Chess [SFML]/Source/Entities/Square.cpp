@@ -8,7 +8,8 @@ Square::~Square()
 {
 }
 
-void Square::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Square::Render(sf::RenderTarget& renderer)
 {
-	target.draw(squareGameObject);
+	renderer.draw(squareGameObject);
 }
+

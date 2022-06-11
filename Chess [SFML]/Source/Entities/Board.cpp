@@ -22,13 +22,13 @@ Board::~Board()
 
 void Board::Update()
 {
-	/*for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			arrayOfSquares[i][j].update();
+			arrayOfSquares[i][j]->Update();
 		}
-	}*/
+	}
 
 }
 void Board::InitBoardGameObjectVisualProperties()
@@ -49,7 +49,14 @@ void Board::InitArrayOfSquares()
 	}
 
 }
-void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Board::Render(sf::RenderTarget& renderer)
 {
-	target.draw(boardGameObject);
+	renderer.draw(boardGameObject);
+	for (int i = 0; i < 8; i++)	
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			arrayOfSquares[i][j]->Render(renderer);
+		}
+	}
 }

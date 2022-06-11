@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 class App;
-class Square : public sf::Drawable
+class Square
 {
 private:
 	App* appPtr;
@@ -10,5 +10,6 @@ private:
 public:
 	Square(App* _app);
 	~Square();
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void Update() {};
+	void Render(sf::RenderTarget& renderer);
 };

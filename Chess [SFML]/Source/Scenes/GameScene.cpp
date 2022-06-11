@@ -36,5 +36,5 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Render(sf::RenderTarget& renderer)
 {
-	
+	boardPtr->Render(renderer);
 }

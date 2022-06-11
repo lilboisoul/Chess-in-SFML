@@ -31,7 +31,7 @@ void App::Run()
 				window.close();
 			}
 		}
-		window.clear(sf::Color::Black);
+		//window.clear(sf::Color::Black);
 		scenes.top()->HandleInput(deltaTime);
 		scenes.top()->Update(deltaTime);
 		scenes.top()->Render(window);

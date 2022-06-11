@@ -3,7 +3,7 @@
 #include "../FEN.h"
 #include "Square.h"
 class App;
-class Board : public sf::Drawable
+class Board
 {
 private:
 	App* appPtr;
@@ -21,6 +21,7 @@ public:
 	Square* arrayOfSquares[8][8];
 
 	void Update();
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void Render(sf::RenderTarget& renderer);
+
 };
 
