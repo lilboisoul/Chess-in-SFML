@@ -31,7 +31,7 @@ void App::Run()
 				window.close();
 			}
 		}
-		//window.clear(sf::Color::Black);
+		window.clear({255,182,193,255}); //light pink color
 		scenes.top()->HandleInput(deltaTime);
 		scenes.top()->Update(deltaTime);
 		scenes.top()->Render(window);

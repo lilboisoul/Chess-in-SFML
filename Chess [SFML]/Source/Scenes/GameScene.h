@@ -5,10 +5,7 @@
 class App;
 class GameScene : public Scene
 {
-private:
-	App* appPtr;
-	Board* boardPtr;
-	FEN fenCode;
+
 public:
 	GameScene(App* _app);
 	~GameScene();
@@ -20,5 +17,9 @@ public:
 	void HandleInput(float deltaTime);
 	void Update(float deltaTime);
 	void Render(sf::RenderTarget& renderer);
+private:
+	App* appPtr;
+	Board* boardPtr;
+	FEN fenCode;
 };
 
