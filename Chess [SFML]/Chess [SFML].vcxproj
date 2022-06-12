@@ -153,6 +153,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Entities\Pieces\Bishop.cpp" />
+    <ClCompile Include="Source\Entities\Pieces\King.cpp" />
+    <ClCompile Include="Source\Entities\Pieces\Knight.cpp" />
+    <ClCompile Include="Source\Entities\Pieces\Pawn.cpp" />
+    <ClCompile Include="Source\Entities\Pieces\Queen.cpp" />
+    <ClCompile Include="Source\Entities\Pieces\Rook.cpp" />
     <ClCompile Include="Source\Entities\Pieces\Piece.cpp" />
     <ClCompile Include="Source\Scenes\SetupGameScene.cpp" />
     <ClCompile Include="Source\FEN.cpp" />
@@ -165,6 +171,12 @@
     <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Entities\Pieces\Bishop.h" />
+    <ClInclude Include="Source\Entities\Pieces\King.h" />
+    <ClInclude Include="Source\Entities\Pieces\Knight.h" />
+    <ClInclude Include="Source\Entities\Pieces\Pawn.h" />
+    <ClInclude Include="Source\Entities\Pieces\Queen.h" />
+    <ClInclude Include="Source\Entities\Pieces\Rook.h" />
     <ClInclude Include="Source\Entities\Pieces\Piece.h" />
     <ClInclude Include="Source\Scenes\SetupGameScene.h" />
     <ClInclude Include="Source\FEN.h" />

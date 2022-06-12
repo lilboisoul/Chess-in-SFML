@@ -1,8 +1,8 @@
 #include "Piece.h"
 
-Piece::Piece(App* _app, Color _color, std::string& _boardPos, char _id) : appPtr(_app), pieceColor(_color), boardPos(_boardPos), ID(_id)
+Piece::Piece(App* _app, Color _color, std::string& _boardPos, char _id) : appPtr(_app), pieceColor(_color), boardPos(_boardPos), ID(_id), hasMoved(false)
 {
-	hasMoved = false;
+	
 }
 
 void Piece::Render(sf::RenderTarget& renderer)
@@ -45,7 +45,4 @@ bool Piece::HasMoved() const
 	return hasMoved;
 }
 
-Piece::~Piece()
-{
 
-}
