@@ -15,11 +15,12 @@ public:
 	virtual void SetPosition(const sf::Vector2f& pos);
 	virtual void SetBoardPos(const std::string& boardPos);
 	virtual void Moved();
+	virtual void SetTexture();
 
-	virtual Color		 GetColor()	   const;
-	virtual std::string  GetBoardPos() const;
-	virtual char		 GetID()	   const;
-	virtual bool		 HasMoved()	   const;
+	Color		 GetColor()	   const;
+	std::string  GetBoardPos() const;
+	char		 GetID()	   const;
+	bool		 HasMoved()	   const;
 
 private:
 	App* appPtr;
@@ -28,5 +29,7 @@ private:
 	std::string boardPos;
 	char ID;
 	bool hasMoved;
+
+	virtual void InitPieceGameOBject();
 };
 

@@ -6,17 +6,23 @@ class Square
 {
 
 public:
-	Square(App* _app);
+	Square(App* _app, std::string boardPos, sf::Vector2f position);
 	~Square();
 	sf::RectangleShape squareGameObject;
 
 	App* GetAppPtr();
-	Piece* GetPiecePtr();
-	void Update() {};
-	void Render(sf::RenderTarget& renderer);
+	std::unique_ptr<Piece>& GetPiecePtr();
+	std::string GetBoardPos();
+	
+	void SetPiece(std::unique_ptr<Piece>&& piece);
+
+	void RenderSquare(sf::RenderTarget& renderer);
+	void RenderPiece(sf::RenderTarget& renderer);
+
 private:
 	App* appPtr;
-	Piece* piecePtr;
+	std::unique_ptr<Piece> piecePtr;
+	std::string boardPos;
 
-	void InitSquareGameObject();
+	void InitSquareGameObject(sf::Vector2f _position);
 };

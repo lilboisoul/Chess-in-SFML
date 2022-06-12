@@ -1,6 +1,19 @@
 #include "Board.h"
 #include "../App.h"
+#include <string>
 constexpr float SQUARE_WIDTH = 100.0f;
+
+void ColorSquare(int temp, Square* sqr) {
+	if (temp % 2 == 1)
+	{
+		sqr->squareGameObject.setFillColor(sf::Color(155, 103, 60, 255));
+	}
+	else
+	{
+		sqr->squareGameObject.setFillColor(sf::Color(239, 231, 219, 255));
+	}
+}
+
 
 Board::Board(App* _app, FEN fenString) : appPtr(_app)
 {
@@ -50,28 +63,21 @@ void Board::InitBoardGameObject()
 }
 void Board::InitArrayOfSquares()
 {
+	//temp variables
 	int temporaryNumber = 1;
-	
+	std::string BoardPos = "a1";
+	sf::Vector2f BoardPosition = { boardGameObject.getPosition().x , boardGameObject.getPosition().y };
+	sf::Vector2f SquarePosition;
+	//
+
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++)
 		{
-			arrayOfSquares[i][j] = new Square(appPtr);
-
-
-			if (temporaryNumber % 2 == 1)
-			{
-				this->arrayOfSquares[i][j]->squareGameObject.setFillColor(sf::Color(155, 103, 60, 255));
-			}
-			else 
-			{
-				this->arrayOfSquares[i][j]->squareGameObject.setFillColor(sf::Color(239, 231, 219, 255));
-			}
+			BoardPos[0] = 'a' + i; BoardPos[1] = '0' + j + 1;
+			SquarePosition = { BoardPosition.x + (SQUARE_WIDTH * i), BoardPosition.y + (SQUARE_WIDTH * (7 - j)) };
+			arrayOfSquares[i][j] = new Square(appPtr, BoardPos, SquarePosition);
+			ColorSquare(temporaryNumber, arrayOfSquares[i][j]);
 			temporaryNumber++;
-
-			this->arrayOfSquares[i][j]->squareGameObject.setPosition(boardGameObject.getPosition().x + (SQUARE_WIDTH * i),
-															         boardGameObject.getPosition().y + (SQUARE_WIDTH * (7 - j)));
-
-			//this->arrayOfSquares[i][j]->setBoardPos(i, j + 1);
 		}
 		temporaryNumber++;
 	}
