@@ -63,6 +63,9 @@
     <ClCompile Include="Source\Entities\Pieces\King.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameLogic.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h">
@@ -113,42 +116,45 @@
     <ClInclude Include="Source\Entities\Pieces\King.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameLogic.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\bB.png">
+    <Image Include="Resources\Textures\bB.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\bK.png">
+    <Image Include="Resources\Textures\bK.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\bN.png">
+    <Image Include="Resources\Textures\bN.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\bP.png">
+    <Image Include="Resources\Textures\bP.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\bQ.png">
+    <Image Include="Resources\Textures\bQ.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wB.png">
+    <Image Include="Resources\Textures\wB.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\bR.png">
+    <Image Include="Resources\Textures\bR.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wK.png">
+    <Image Include="Resources\Textures\wK.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wN.png">
+    <Image Include="Resources\Textures\wN.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wP.png">
+    <Image Include="Resources\Textures\wP.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wQ.png">
+    <Image Include="Resources\Textures\wQ.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Resources\wR.png">
+    <Image Include="Resources\Textures\wR.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
   </ItemGroup>

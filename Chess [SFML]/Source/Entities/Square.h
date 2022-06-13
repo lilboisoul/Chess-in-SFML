@@ -15,9 +15,8 @@ public:
 	std::string GetBoardPos();
 	
 	void SetPiece(std::unique_ptr<Piece>&& piece);
-
-	void RenderSquare(sf::RenderTarget& renderer);
-	void RenderPiece(sf::RenderTarget& renderer);
+	void Update() { };
+	void Render(sf::RenderTarget& renderer);
 
 private:
 	App* appPtr;

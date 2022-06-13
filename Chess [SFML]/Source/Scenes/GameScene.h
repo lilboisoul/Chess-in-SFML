@@ -7,7 +7,7 @@ class GameScene : public Scene
 {
 
 public:
-	GameScene(App* _app);
+	GameScene(App* _app, FEN _fen);
 	~GameScene();
 
 	App* GetAppPtr();
@@ -20,6 +20,6 @@ public:
 private:
 	App* appPtr;
 	Board* boardPtr;
-	FEN fenCode;
+	FEN fen;
 };
 

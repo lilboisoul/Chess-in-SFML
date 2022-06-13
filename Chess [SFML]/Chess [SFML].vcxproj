@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GameLogic.cpp" />
     <ClCompile Include="Source\Entities\Pieces\Bishop.cpp" />
     <ClCompile Include="Source\Entities\Pieces\King.cpp" />
     <ClCompile Include="Source\Entities\Pieces\Knight.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\GameLogic.h" />
     <ClInclude Include="Source\Entities\Pieces\Bishop.h" />
     <ClInclude Include="Source\Entities\Pieces\King.h" />
     <ClInclude Include="Source\Entities\Pieces\Knight.h" />
@@ -189,18 +191,18 @@
     <ClInclude Include="Source\Entities\Square.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\bB.png" />
-    <Image Include="Resources\bK.png" />
-    <Image Include="Resources\bN.png" />
-    <Image Include="Resources\bP.png" />
-    <Image Include="Resources\bQ.png" />
-    <Image Include="Resources\bR.png" />
-    <Image Include="Resources\wB.png" />
-    <Image Include="Resources\wK.png" />
-    <Image Include="Resources\wN.png" />
-    <Image Include="Resources\wP.png" />
-    <Image Include="Resources\wQ.png" />
-    <Image Include="Resources\wR.png" />
+    <Image Include="Resources\Textures\bB.png" />
+    <Image Include="Resources\Textures\bK.png" />
+    <Image Include="Resources\Textures\bN.png" />
+    <Image Include="Resources\Textures\bP.png" />
+    <Image Include="Resources\Textures\bQ.png" />
+    <Image Include="Resources\Textures\bR.png" />
+    <Image Include="Resources\Textures\wB.png" />
+    <Image Include="Resources\Textures\wK.png" />
+    <Image Include="Resources\Textures\wN.png" />
+    <Image Include="Resources\Textures\wP.png" />
+    <Image Include="Resources\Textures\wQ.png" />
+    <Image Include="Resources\Textures\wR.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

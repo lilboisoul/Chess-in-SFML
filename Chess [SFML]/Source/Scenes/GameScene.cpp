@@ -1,11 +1,12 @@
 #include "GameScene.h"
 #include <iostream>
+#include "../FEN.h"
 #include "../App.h"
 
-GameScene::GameScene(App* _app): Scene(), appPtr(_app)
-{
-	boardPtr = new Board(appPtr, fenCode);
 
+GameScene::GameScene(App* _app, FEN _fen): Scene(), appPtr(_app), fen(_fen)
+{
+	boardPtr = new Board(appPtr, fen.GetPieces());
 }
 GameScene::~GameScene()
 {
@@ -22,7 +23,11 @@ Board* GameScene::GetBoardPtr()
 }
 void GameScene::HandleEvents(sf::Event& ev)
 {
-	
+	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape)
+	{
+		appPtr->PopScene();
+		return;
+	}
 }
 void GameScene::HandleInput(float deltaTime)
 {

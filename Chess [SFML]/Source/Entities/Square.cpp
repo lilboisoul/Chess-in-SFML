@@ -43,15 +43,13 @@ void Square::SetPiece(std::unique_ptr<Piece>&& piece)
 		piecePtr->SetPosition({ squareGameObject.getPosition().x + squareGameObject.getSize().x / 2.0f, squareGameObject.getPosition().y + squareGameObject.getSize().y / 2.0f });
 }
 
-void Square::RenderSquare(sf::RenderTarget& renderer)
+void Square::Render(sf::RenderTarget& renderer)
 {
 	renderer.draw(squareGameObject);
-}
-void Square::RenderPiece(sf::RenderTarget& renderer)
-{
 	if (piecePtr) {
 		piecePtr->Render(renderer);
 	}
 }
+
 
 

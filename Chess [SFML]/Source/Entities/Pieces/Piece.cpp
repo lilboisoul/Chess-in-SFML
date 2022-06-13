@@ -46,6 +46,7 @@ void Piece::SetTexture()
 Piece::Piece(App* _app, Color _color, std::string& _boardPos, char _id) : appPtr(_app), pieceColor(_color), boardPos(_boardPos), ID(_id), hasMoved(false)
 {
 	SetTexture();
+
 }
 
 void Piece::Render(sf::RenderTarget& renderer)

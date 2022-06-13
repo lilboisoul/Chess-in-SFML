@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "../App.h"
+#include "../FEN.h"
 #include <string>
 constexpr float SQUARE_WIDTH = 100.0f;
 
@@ -15,10 +16,11 @@ void ColorSquare(int temp, Square* sqr) {
 }
 
 
-Board::Board(App* _app, FEN fenString) : appPtr(_app)
+Board::Board(App* _app, std::string fen_pieces) : appPtr(_app)
 {
 	InitBoardGameObject();
 	InitArrayOfSquares();
+	LoadPosition(fen_pieces);
 }
 
 Board::~Board()
@@ -82,6 +84,9 @@ void Board::InitArrayOfSquares()
 		temporaryNumber++;
 	}
 
+}
+void Board::LoadPosition(std::string fen_pieces)
+{
 }
 void Board::Render(sf::RenderTarget& renderer)
 {

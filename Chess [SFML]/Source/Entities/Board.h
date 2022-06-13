@@ -7,7 +7,7 @@ class Board
 {
 
 public:
-	Board(App* _app, FEN fenString);
+	Board(App* _app, std::string fen_pieces);
 	~Board();
 
 	App* GetAppPtr();
@@ -23,8 +23,7 @@ private:
 
 	void InitBoardGameObject();
 	void InitArrayOfSquares();
-
-	void LoadPosition(FEN fenPieces);
+	void LoadPosition(std::string fen_pieces);
 
 };
 
