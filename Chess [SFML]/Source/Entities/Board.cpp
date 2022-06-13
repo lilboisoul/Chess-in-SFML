@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "../App.h"
 #include "../FEN.h"
+#include "Pieces/Pieces.h"
 #include <string>
 constexpr float SQUARE_WIDTH = 100.0f;
 
@@ -87,7 +88,102 @@ void Board::InitArrayOfSquares()
 }
 void Board::LoadPosition(std::string fen_pieces)
 {
-}
+
+	//temporary variables
+	char temporaryCharacter;
+	int row = 7, column = 0;
+
+	//initializes the array
+	char fenPosition[8][8];
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			fenPosition[i][j] = '-';
+		}
+	}
+
+
+	for (int i = 0; i < fen_pieces.length(); i++)
+	{
+		temporaryCharacter = fen_pieces[i];
+		if (temporaryCharacter >= 'a' && temporaryCharacter <= 'z' || temporaryCharacter >= 'A' && temporaryCharacter <= 'Z')
+		{
+			fenPosition[row][column] = temporaryCharacter;
+
+			column++;
+		}
+		else if (temporaryCharacter == '/')
+		{
+			row--;
+			column = 0;
+		}
+		else {
+			column += static_cast<int>(temporaryCharacter - 48);
+		}
+		if (row == 0 && column == 8) break; //checks for the end of piece placement section of the FEN code
+	}
+
+	for (int j = 0; j < 8; j++)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			std::string tempBoardPos = arrayOfSquares[i][j]->GetBoardPos();
+			switch (fenPosition[7 - j][i])
+			{
+				case 'p':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Pawn>(appPtr, Color::WHITE, tempBoardPos, 'p'));
+					break;
+
+				case 'P':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Pawn>(appPtr, Color::BLACK, tempBoardPos, 'P'));
+					break;
+
+				case 'n':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Knight>(appPtr, Color::WHITE, tempBoardPos, 'n'));
+					break;
+
+				case 'N':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Knight>(appPtr, Color::BLACK, tempBoardPos, 'N'));
+					break;
+
+				case 'b':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Bishop>(appPtr, Color::WHITE, tempBoardPos, 'b'));
+					break;
+
+				case 'B':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Bishop>(appPtr, Color::BLACK, tempBoardPos, 'B'));
+					break;
+
+				case 'r':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Rook>(appPtr, Color::WHITE, tempBoardPos, 'r'));
+					break;
+
+				case 'R':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Rook>(appPtr, Color::BLACK, tempBoardPos, 'R'));
+					break;
+
+				case 'q':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Queen>(appPtr, Color::WHITE, tempBoardPos, 'q'));
+					break;
+
+				case 'Q':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<Queen>(appPtr, Color::BLACK, tempBoardPos, 'Q'));
+					break;
+
+				case 'k':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<King>(appPtr, Color::WHITE, tempBoardPos , 'k'));
+					break;
+
+				case 'K':
+					arrayOfSquares[i][j]->SetPiece(std::make_unique<King>(appPtr, Color::BLACK, tempBoardPos, 'pK'));
+					break;
+				}
+
+			}
+		}
+	}
+
 void Board::Render(sf::RenderTarget& renderer)
 {
 	renderer.draw(boardGameObject);

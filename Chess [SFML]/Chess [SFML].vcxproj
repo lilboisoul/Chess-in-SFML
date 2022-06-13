@@ -172,6 +172,7 @@
     <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Entities\Pieces\Pieces.h" />
     <ClInclude Include="Source\GameLogic.h" />
     <ClInclude Include="Source\Entities\Pieces\Bishop.h" />
     <ClInclude Include="Source\Entities\Pieces\King.h" />

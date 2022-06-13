@@ -18,7 +18,7 @@ Square::Square(App* _app, std::string _boardPos, sf::Vector2f _position) : appPt
 
 Square::~Square()
 {
-	
+
 }
 
 App* Square::GetAppPtr()
@@ -38,7 +38,7 @@ std::string Square::GetBoardPos()
 void Square::SetPiece(std::unique_ptr<Piece>&& piece)
 {
 	piecePtr = std::move(piece);
-	piecePtr->SetBoardPos(boardPos);
+	//piecePtr->SetBoardPos(boardPos);
 	if (piecePtr)
 		piecePtr->SetPosition({ squareGameObject.getPosition().x + squareGameObject.getSize().x / 2.0f, squareGameObject.getPosition().y + squareGameObject.getSize().y / 2.0f });
 }

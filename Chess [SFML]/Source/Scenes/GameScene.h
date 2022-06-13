@@ -13,6 +13,7 @@ public:
 	App* GetAppPtr();
 	Board* GetBoardPtr();
 
+
 	void HandleEvents(sf::Event& ev);
 	void HandleInput(float deltaTime);
 	void Update(float deltaTime);
