@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Move.cpp" />
     <ClCompile Include="Source\GameLogic.cpp" />
     <ClCompile Include="Source\Entities\Pieces\Bishop.cpp" />
     <ClCompile Include="Source\Entities\Pieces\King.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Move.h" />
     <ClInclude Include="Source\Entities\Pieces\Pieces.h" />
     <ClInclude Include="Source\GameLogic.h" />
     <ClInclude Include="Source\Entities\Pieces\Bishop.h" />

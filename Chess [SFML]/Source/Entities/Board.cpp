@@ -9,10 +9,12 @@ void ColorSquare(int temp, Square* sqr) {
 	if (temp % 2 == 1)
 	{
 		sqr->squareGameObject.setFillColor(sf::Color(155, 103, 60, 255));
+		sqr->SetColor(Color::BLACK);
 	}
 	else
 	{
 		sqr->squareGameObject.setFillColor(sf::Color(239, 231, 219, 255));
+		sqr->SetColor(Color::WHITE);
 	}
 }
 
@@ -43,17 +45,8 @@ App* Board::GetAppPtr()
 	return appPtr;
 }
 
-void Board::Update()
-{
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			arrayOfSquares[i][j]->Update();
-		}
-	}
 
-}
+
 void Board::InitBoardGameObject()
 {
 	sf::Vector2u windowsize = GetAppPtr()->GetWindowSize();
@@ -195,3 +188,30 @@ void Board::Render(sf::RenderTarget& renderer)
 		}
 	}
 }
+
+std::unique_ptr<Piece>&& Board::GetCurrentlyHoveredPiece(sf::RenderWindow& window) 
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (arrayOfSquares[i][j]->IsHovered(mousePos))
+				return std::move(arrayOfSquares[i][j]->GetPiecePtr());
+		}
+	}
+
+	return nullptr;
+}
+
+Square* Board::GetCurrentlyHoveredTile(sf::RenderWindow& window) 
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (arrayOfSquares[i][j]->IsHovered(mousePos))
+				return arrayOfSquares[i][j];
+		}
+	}
+}
+

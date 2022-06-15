@@ -2,17 +2,18 @@
 #include "Scene.h"
 #include "../FEN.h"
 #include "../Entities/Board.h"
+#include "../Move.h"
+#include "../GameLogic.h"
 class App;
 class GameScene : public Scene
 {
 
 public:
-	GameScene(App* _app, FEN _fen);
+	GameScene(App* _app, FEN _fen, GameMode _gamemode);
 	~GameScene();
 
 	App* GetAppPtr();
 	Board* GetBoardPtr();
-
 
 	void HandleEvents(sf::Event& ev);
 	void HandleInput(float deltaTime);
@@ -22,5 +23,8 @@ private:
 	App* appPtr;
 	Board* boardPtr;
 	FEN fen;
+	Move moveManager;
+	GameLogic logic;
+	bool anySquareClicked;
 };
 

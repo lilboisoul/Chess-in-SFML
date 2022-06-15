@@ -13,9 +13,10 @@ public:
 	App* GetAppPtr();
 	Square* arrayOfSquares[8][8];
 
-	void Update();
 	void Render(sf::RenderTarget& renderer);
 
+	Square*					 GetCurrentlyHoveredTile (sf::RenderWindow& window);
+	std::unique_ptr<Piece>&& GetCurrentlyHoveredPiece(sf::RenderWindow& window);
 
 private:
 	App* appPtr;

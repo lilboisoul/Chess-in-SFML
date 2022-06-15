@@ -1,19 +1,36 @@
 #include "Square.h"
+#include "Board.h"
 #include "../App.h"
-void Square::InitSquareGameObject(sf::Vector2f _position)
+
+constexpr float SQUAREWIDTH = 100.0f;
+
+void HighlightSquare(sf::RectangleShape& square)
+{
+	square.setFillColor(sf::Color(229, 107, 107, 255));
+}
+void UnhighlightSquare(sf::RectangleShape& square, Color _color)
+{
+	if (_color == Color::WHITE)
+	{
+		square.setFillColor(sf::Color(239, 231, 219, 255));
+	}
+	else
+	{
+		square.setFillColor(sf::Color(155, 103, 60, 255));
+		
+	}
+}
+
+
+Square::Square(App* _app, std::string _boardPos, sf::Vector2f _position) : appPtr(_app), boardPos(_boardPos)
 {
 	sf::Vector2u windowsize = GetAppPtr()->GetWindowSize();
 
 	squareGameObject.setPosition(_position);
-	squareGameObject.setSize({ windowsize.x * 0.1f, windowsize.y * 0.1f });
+	squareGameObject.setSize({ SQUAREWIDTH, SQUAREWIDTH });
 	squareGameObject.setOutlineColor(sf::Color::Black);
 	squareGameObject.setOutlineThickness(1.f);
-
-}
-
-Square::Square(App* _app, std::string _boardPos, sf::Vector2f _position) : appPtr(_app), boardPos(_boardPos)
-{
-	InitSquareGameObject(_position);
+	isClicked = false;
 }
 
 Square::~Square()
@@ -49,6 +66,35 @@ void Square::Render(sf::RenderTarget& renderer)
 	if (piecePtr) {
 		piecePtr->Render(renderer);
 	}
+}
+
+bool Square::IsHovered(sf::Vector2i& mousePos)
+{
+	return squareGameObject.getGlobalBounds().contains((float)mousePos.x, (float)mousePos.y);
+}
+
+void Square::SetClicked(bool val)
+{
+	this->isClicked = val;
+	if (val == true)
+	{
+		HighlightSquare(squareGameObject);
+	}
+	else
+	{
+		UnhighlightSquare(squareGameObject, squareColor);
+	}
+
+}
+
+void Square::SetColor(Color _color)
+{
+	squareColor = _color;
+}
+
+bool Square::GetClicked()
+{
+	return isClicked;
 }
 
 

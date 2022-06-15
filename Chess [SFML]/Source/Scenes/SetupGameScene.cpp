@@ -24,7 +24,7 @@ void SetupGameScene::HandleEvents(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 	{
-		appPtr->ChangeScene(std::make_unique<GameScene>(appPtr, GetFen()));
+		appPtr->ChangeScene(std::make_unique<GameScene>(appPtr, GetFen(), GameMode::CHESS));
 		return;
 	}
 }

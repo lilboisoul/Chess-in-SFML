@@ -4,9 +4,10 @@
 #include "../App.h"
 
 
-GameScene::GameScene(App* _app, FEN _fen): Scene(), appPtr(_app), fen(_fen)
+GameScene::GameScene(App* _app, FEN _fen, GameMode _gamemode): Scene(), appPtr(_app), fen(_fen), moveManager(_app), logic(_gamemode, _fen)
 {
 	boardPtr = new Board(appPtr, fen.GetPieces());
+	anySquareClicked = false;
 }
 GameScene::~GameScene()
 {
@@ -28,10 +29,29 @@ void GameScene::HandleEvents(sf::Event& ev)
 		appPtr->PopScene();
 		return;
 	}
+	if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Left)
+	{
+		Square* squareHovered = boardPtr->GetCurrentlyHoveredTile(GetAppPtr()->GetWindow());
+		Piece*  pieceHovered = boardPtr->GetCurrentlyHoveredPiece(GetAppPtr()->GetWindow()).get();
+
+		if (!squareHovered->GetClicked() && pieceHovered && !anySquareClicked)
+		{
+			squareHovered->SetClicked(true);
+			anySquareClicked = true;
+			return;
+		}
+		if (squareHovered->GetClicked() && pieceHovered)
+		{
+			squareHovered->SetClicked(false);
+			anySquareClicked = false;
+			return;
+		}
+		
+	}
 }
 void GameScene::HandleInput(float deltaTime)
 {
-
+	
 }
 
 void GameScene::Update(float deltaTime)
