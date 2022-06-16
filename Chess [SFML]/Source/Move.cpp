@@ -1,5 +1,7 @@
 #include "Move.h"
 #include "Entities/Square.h"
+#include <iostream>
+#include "App.h"
 
 Move::Move(App* _app) : appPtr(_app)
 {
@@ -7,9 +9,11 @@ Move::Move(App* _app) : appPtr(_app)
 	pieceClicked = nullptr;
 }
 
+
+
 void Move::MakeMove(Square& square_from, Square& square_to)
 {
-	if (square_from.GetPiecePtr() != nullptr)
+	if (square_from.GetPiecePtr() != nullptr && square_from.GetBoardPos() != square_to.GetBoardPos())
 	{
 		square_to.SetPiece(std::move(square_from.GetPiecePtr()));
 		square_from.SetPiece(nullptr);
@@ -19,7 +23,12 @@ void Move::MakeMove(Square& square_from, Square& square_to)
 void Move::SetSquareClicked(Square* square)
 {
 	squareClicked = square;
-	pieceClicked = std::move(square->GetPiecePtr());
+	//pieceClicked = std::move(square->GetPiecePtr());
+}
+
+Square* Move::GetSquareClicked()
+{
+	return squareClicked;
 }
 
 

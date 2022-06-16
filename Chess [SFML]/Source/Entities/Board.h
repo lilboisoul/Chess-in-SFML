@@ -9,6 +9,7 @@ class Board
 public:
 	Board(App* _app, std::string fen_pieces);
 	~Board();
+	sf::RectangleShape boardGameObject;
 
 	App* GetAppPtr();
 	Square* arrayOfSquares[8][8];
@@ -20,7 +21,6 @@ public:
 
 private:
 	App* appPtr;
-	sf::RectangleShape boardGameObject;
 
 	void InitBoardGameObject();
 	void InitArrayOfSquares();

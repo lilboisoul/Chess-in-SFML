@@ -9,9 +9,9 @@ public:
 
 	void MakeMove(Square& square_from, Square& square_to);
 
-	void SetSquareClicked(Square* square);
-
-	App* GetAppPtr();
+	void	SetSquareClicked(Square* square);
+	Square* GetSquareClicked();
+	App*	GetAppPtr();
 private:
 	Square* squareClicked;
 	std::unique_ptr<Piece> pieceClicked;

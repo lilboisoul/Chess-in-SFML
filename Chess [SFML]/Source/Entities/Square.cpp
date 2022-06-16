@@ -55,9 +55,11 @@ std::string Square::GetBoardPos()
 void Square::SetPiece(std::unique_ptr<Piece>&& piece)
 {
 	piecePtr = std::move(piece);
-	//piecePtr->SetBoardPos(boardPos);
 	if (piecePtr)
+	{
+		piecePtr->SetBoardPos(boardPos);
 		piecePtr->SetPosition({ squareGameObject.getPosition().x + squareGameObject.getSize().x / 2.0f, squareGameObject.getPosition().y + squareGameObject.getSize().y / 2.0f });
+	}
 }
 
 void Square::Render(sf::RenderTarget& renderer)

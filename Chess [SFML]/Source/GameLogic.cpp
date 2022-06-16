@@ -1,5 +1,5 @@
 #include "GameLogic.h"
-
+#include <iostream>
 GameLogic::GameLogic(GameMode _gamemode, FEN fenString) : currentGameMode(_gamemode)
 {
 	SetCurrentPlayer(fenString.GetCurrentPlayer());
