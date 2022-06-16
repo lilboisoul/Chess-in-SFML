@@ -14,11 +14,13 @@ public:
 	App* GetAppPtr();
 	Square* arrayOfSquares[8][8];
 
-	void Render(sf::RenderTarget& renderer);
+	void HighlightMoves(std::vector<std::pair<int, int>> _moves);
+	void UnhighlightMoves(std::vector<std::pair<int, int>> _moves);
 
 	Square*					 GetCurrentlyHoveredTile (sf::RenderWindow& window);
 	std::unique_ptr<Piece>&& GetCurrentlyHoveredPiece(sf::RenderWindow& window);
 
+	void Render(sf::RenderTarget& renderer);
 private:
 	App* appPtr;
 

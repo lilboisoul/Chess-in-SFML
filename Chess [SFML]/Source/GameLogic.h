@@ -20,6 +20,8 @@ public:
 	//void SetBlackKingCastled(bool _val);
 	void SetDrawMoves(unsigned int _moves);
 	void SetTotalMoves(unsigned int _moves);
+
+	bool CheckMoveLegality(Board& board, Square& destination, std::vector<std::pair<int, int>> moves);
 private:
 
 	GameMode currentGameMode;

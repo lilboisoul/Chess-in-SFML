@@ -23,6 +23,10 @@ public:
 	void Render(sf::RenderTarget& renderer);
 
 	bool IsHovered(sf::Vector2i& mousePos);
+	
+	void SetHighlighted(bool _val);
+	bool IsHighlighted();
+
 private:
 	App* appPtr;
 	Color squareColor;

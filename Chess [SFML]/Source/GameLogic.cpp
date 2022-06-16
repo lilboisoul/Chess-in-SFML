@@ -63,3 +63,16 @@ void GameLogic::SetTotalMoves(unsigned int _moves)
 {
 	this->totalMoves = _moves;
 }
+
+bool GameLogic::CheckMoveLegality(Board& board, Square& destination, std::vector<std::pair<int, int>> moves)
+{
+	//std::vector<std::pair<int, int>> legalmoves = square_from.getPiecePtr()->getLegalMoves(square_from.getPiecePtr()->getPseudoLegalMoves(board, logic));
+
+	for (int i = 0; i < moves.size(); i++) {
+		//std::cout << destination.GetBoardPos()[0] - 96 <<" " <<  destination.GetBoardPos()[1] - 48 << "\n";
+		if (destination.GetBoardPos()[0] - 96 == moves[i].first && destination.GetBoardPos()[1] - 48 == moves[i].second) {
+			return true;
+		}
+	}
+	return false;
+}

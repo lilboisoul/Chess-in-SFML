@@ -4,11 +4,11 @@
 
 constexpr float SQUAREWIDTH = 100.0f;
 
-void HighlightSquare(sf::RectangleShape& square)
+void ClickSquare(sf::RectangleShape& square)
 {
 	square.setFillColor(sf::Color(229, 107, 107, 255));
 }
-void UnhighlightSquare(sf::RectangleShape& square, Color _color)
+void UnclickSquare(sf::RectangleShape& square, Color _color)
 {
 	if (_color == Color::WHITE)
 	{
@@ -75,16 +75,47 @@ bool Square::IsHovered(sf::Vector2i& mousePos)
 	return squareGameObject.getGlobalBounds().contains((float)mousePos.x, (float)mousePos.y);
 }
 
+void Square::SetHighlighted(bool _val)
+{
+	if (_val)
+	{
+		squareGameObject.setFillColor(sf::Color(220, 59, 25, 255));
+		return;
+	}
+	else
+	{
+		if (squareColor == Color::WHITE)
+		{
+			squareGameObject.setFillColor(sf::Color(239, 231, 219, 255));
+		}
+		else
+		{
+			squareGameObject.setFillColor(sf::Color(155, 103, 60, 255));
+
+		}
+	}
+	return;
+}
+
+bool Square::IsHighlighted()
+{
+	if (squareGameObject.getFillColor() == sf::Color(220, 59, 25, 255))
+	{
+		return true;
+	}
+	return false;
+}
+
 void Square::SetClicked(bool val)
 {
 	this->isClicked = val;
 	if (val == true)
 	{
-		HighlightSquare(squareGameObject);
+		ClickSquare(squareGameObject);
 	}
 	else
 	{
-		UnhighlightSquare(squareGameObject, squareColor);
+		UnclickSquare(squareGameObject, squareColor);
 	}
 
 }

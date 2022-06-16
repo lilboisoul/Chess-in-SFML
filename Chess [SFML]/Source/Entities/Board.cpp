@@ -45,6 +45,22 @@ App* Board::GetAppPtr()
 	return appPtr;
 }
 
+void Board::HighlightMoves(std::vector<std::pair<int, int>> _moves)
+{
+	for (auto [x, y] : _moves)
+	{
+		arrayOfSquares[x-1][y-1]->SetHighlighted(true);
+	}
+}
+
+void Board::UnhighlightMoves(std::vector<std::pair<int, int>> _moves)
+{
+	for (auto [x, y] : _moves)
+	{
+		arrayOfSquares[x-1][y-1]->SetHighlighted(false);
+	}
+}
+
 
 
 void Board::InitBoardGameObject()

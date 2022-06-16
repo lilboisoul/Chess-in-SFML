@@ -34,22 +34,23 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 {
 	if(!squareHovered || !pieceHovered)
 		return;
-	 
+	moves.resize(0);
+	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
+	boardPtr->HighlightMoves(moves);
 	squareHovered->SetClicked(true);
 	moveManager.SetSquareClicked(squareHovered);
-		//m_Board.HighlightTiles(m_Moves);
-	
-	
 }
 
 void GameScene::DropPiece(Square* squareHovered, Piece* pieceHovered)
 {
 	if (squareHovered) {
-
-		moveManager.GetSquareClicked()->GetPiecePtr()->Moved();
-		moveManager.MakeMove(*moveManager.GetSquareClicked(), *squareHovered);
-		AfterMove();
-		return;
+		if (logic.CheckMoveLegality(*boardPtr, *squareHovered, moves) == true) 
+		{
+			moveManager.GetSquareClicked()->GetPiecePtr()->Moved();
+			moveManager.MakeMove(*moveManager.GetSquareClicked(), *squareHovered);
+			AfterMove();
+			return;
+		}
 	}
 	
 }
@@ -58,6 +59,7 @@ void GameScene::AfterMove()
 {
 	moveManager.GetSquareClicked()->SetClicked(false);
 	moveManager.SetSquareClicked(nullptr);
+	boardPtr->UnhighlightMoves(moves);
 
 	if (logic.GetCurrentPlayer() == Color::BLACK) {
 		logic.SetCurrentPlayer("w");
@@ -81,37 +83,33 @@ void GameScene::HandleEvents(sf::Event& ev)
 		Square* squareHovered = boardPtr->GetCurrentlyHoveredTile(GetAppPtr()->GetWindow());
 		Piece*  pieceHovered = boardPtr->GetCurrentlyHoveredPiece(GetAppPtr()->GetWindow()).get();
 		
-		if (anySquareClicked == nullptr && pieceHovered)
-			if(pieceHovered->GetColor() == logic.GetCurrentPlayer())
-		{
-			std::cout << "anysquare == nullptr\n";
-			anySquareClicked = squareHovered;
-			SelectPiece(squareHovered, pieceHovered);
-			return;
+		if (anySquareClicked == nullptr && pieceHovered) {
+			if (pieceHovered->GetColor() == logic.GetCurrentPlayer())
+			{
+				anySquareClicked = squareHovered;
+				SelectPiece(squareHovered, pieceHovered);
+				return;
+			}
 		}
-		if (anySquareClicked != nullptr && (squareHovered == anySquareClicked))
+		if (anySquareClicked != nullptr)
 		{
-			std::cout << "same square\n";
-			squareHovered->SetClicked(false);
-			anySquareClicked = nullptr;
-			return;
-		}
-		if (anySquareClicked != nullptr && squareHovered->GetBoardPos() != anySquareClicked->GetBoardPos())
-		{
-			std::cout << "move\n";
-			DropPiece(squareHovered, pieceHovered);
+			if (squareHovered != anySquareClicked)
+			{
+				DropPiece(squareHovered, pieceHovered);
+
+			}
 			anySquareClicked->SetClicked(false);
 			anySquareClicked = nullptr;
+			boardPtr->UnhighlightMoves(moves);
 			return;
 		}
-		//anySquareClicked == nullptr;
-		
 	}
 }
+
 void GameScene::HandleInput(float deltaTime)
 {
-	
 }
+
 
 void GameScene::Update(float deltaTime)
 {
