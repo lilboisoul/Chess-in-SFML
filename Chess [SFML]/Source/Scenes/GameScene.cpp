@@ -15,7 +15,7 @@ bool MouseOnChessboard(sf::RenderWindow& window, sf::RectangleShape& board)
 GameScene::GameScene(App* _app, FEN _fen, GameMode _gamemode): Scene(), appPtr(_app), fen(_fen), moveManager(_app), logic(_gamemode, _fen)
 {
 	boardPtr = new Board(appPtr, fen.GetPieces());
-	anySquareClicked = nullptr;
+	currentlyClickedSquare = nullptr;
 }
 GameScene::~GameScene()
 {
@@ -36,9 +36,10 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 		return;
 	squareHovered->SetClicked(true);
 	moveManager.SetSquareClicked(squareHovered);
-	moves.resize(0);
+	moves.clear();
 	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
 	moves = logic.ValidateMoves(squareHovered, moveManager, *boardPtr, moves);
+
 	boardPtr->HighlightMoves(moves);
 }
 
@@ -84,23 +85,24 @@ void GameScene::HandleEvents(sf::Event& ev)
 		Square* squareHovered = boardPtr->GetCurrentlyHoveredTile(GetAppPtr()->GetWindow());
 		Piece*  pieceHovered = boardPtr->GetCurrentlyHoveredPiece(GetAppPtr()->GetWindow()).get();
 		
-		if (anySquareClicked == nullptr && pieceHovered) {
+		if (currentlyClickedSquare == nullptr && pieceHovered) 
+		{
 			if (pieceHovered->GetColor() == logic.GetCurrentPlayer())
 			{
-				anySquareClicked = squareHovered;
+				currentlyClickedSquare = squareHovered;
 				SelectPiece(squareHovered, pieceHovered);
 				return;
 			}
 		}
-		if (anySquareClicked != nullptr)
+
+		if (currentlyClickedSquare != nullptr)
 		{
-			if (squareHovered != anySquareClicked)
+			if (squareHovered != currentlyClickedSquare)
 			{
 				DropPiece(squareHovered, pieceHovered);
-
 			}
-			anySquareClicked->SetClicked(false);
-			anySquareClicked = nullptr;
+			currentlyClickedSquare->SetClicked(false);
+			currentlyClickedSquare = nullptr;
 			boardPtr->UnhighlightMoves(moves);
 			return;
 		}

@@ -69,7 +69,6 @@ bool GameLogic::CheckMoveLegality(Board& board, Square& destination, std::vector
 {
 	
 	for (int i = 0; i < moves.size(); i++) {
-		//std::cout << destination.GetBoardPos()[0] - 96 <<" " <<  destination.GetBoardPos()[1] - 48 << "\n";
 		if (destination.GetBoardPos()[0] - 96 == moves[i].first 
 			&& destination.GetBoardPos()[1] - 48 == moves[i].second) {
 			return true;
@@ -84,14 +83,15 @@ std::vector<std::pair<int, int>> GameLogic::ValidateMoves(Square* currentSquare,
 	GetCurrentPlayer() == Color::WHITE ? playerColor = Color::BLACK : playerColor = Color::WHITE;
 	std::vector<std::pair<int, int>> validatedMoves;
 	std::unique_ptr<Piece> temp = nullptr;
+
 	for (auto [x, y] : moves)
 	{
-		temp = moveManager.SimulateMove(*currentSquare, *board.arrayOfSquares[x-1][y-1]);
+		temp = moveManager.SimulateMove(*currentSquare, *board.arrayOfSquares[x - 1][y - 1]);
 		if (!IsPlayerKingChecked(board, GetCurrentPlayer()))
 		{
 			validatedMoves.push_back({ x, y });
 		}
-		moveManager.MakeMove(*board.arrayOfSquares[x-1][y-1], *currentSquare);
+		moveManager.MakeMove(*board.arrayOfSquares[x - 1][y - 1], *currentSquare);
 		if (temp)
 		{
 			board.arrayOfSquares[x - 1][y - 1]->SetPiece(std::move(temp));
@@ -105,7 +105,6 @@ std::string GameLogic::GetKingBoardPos(Board& board, Color player)
 {
 	char id;
 	player == Color::WHITE ? id = 'k' : id = 'K';
-	std::pair<int, int> boardPos = { 0, 0 };
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++)
 		{

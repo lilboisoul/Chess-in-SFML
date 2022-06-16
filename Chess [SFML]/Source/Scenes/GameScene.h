@@ -19,8 +19,6 @@ public:
 	void DropPiece(Square* squareHovered, Piece* pieceHovered);
 	void AfterMove();
 
-
-
 	void HandleEvents(sf::Event& ev);
 	void HandleInput(float deltaTime);
 	void Update(float deltaTime);
@@ -33,7 +31,9 @@ private:
 	FEN fen;
 	Move moveManager;
 	GameLogic logic;
-	Square* anySquareClicked;
+	Square* currentlyClickedSquare;
 	std::vector<std::pair<int, int>> moves;
+
+
 };
 
