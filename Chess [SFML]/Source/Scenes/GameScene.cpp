@@ -34,11 +34,12 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 {
 	if(!squareHovered || !pieceHovered)
 		return;
-	moves.resize(0);
-	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
-	boardPtr->HighlightMoves(moves);
 	squareHovered->SetClicked(true);
 	moveManager.SetSquareClicked(squareHovered);
+	moves.resize(0);
+	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
+	moves = logic.ValidateMoves(squareHovered, moveManager, *boardPtr, moves);
+	boardPtr->HighlightMoves(moves);
 }
 
 void GameScene::DropPiece(Square* squareHovered, Piece* pieceHovered)

@@ -8,7 +8,7 @@ public:
 	~Move() {};
 
 	void MakeMove(Square& square_from, Square& square_to);
-
+	std::unique_ptr<Piece> SimulateMove(Square& square_from, Square& square_to);
 	void	SetSquareClicked(Square* square);
 	Square* GetSquareClicked();
 	App*	GetAppPtr();
