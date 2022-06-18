@@ -55,6 +55,11 @@ void GameLogic::SetCurrentPlayer(std::string player)
 	}
 }
 
+void GameLogic::SetGameState(GameState state)
+{
+	currentGameState = state;
+}
+
 void GameLogic::SetDrawMoves(unsigned int _moves)
 {
 	this->drawMoves = _moves;
@@ -119,7 +124,7 @@ std::string GameLogic::GetKingBoardPos(Board& board, Color player)
 	return "a1";
 }
 
-std::vector<std::pair<int, int>> GameLogic::GetSquaresPlayerAttacks(Board& board, Color _color)
+std::vector<std::pair<int, int>> GameLogic::GetSquaresPlayerAttacks(Board& board, Color playerColor)
 {
 	std::vector<std::pair<int, int>> pieceLegalMoves;
 	std::vector<std::pair<int, int>> attackedSquares;
@@ -129,7 +134,7 @@ std::vector<std::pair<int, int>> GameLogic::GetSquaresPlayerAttacks(Board& board
 		{
 			pieceLegalMoves.resize(0);
 			if (board.arrayOfSquares[i][j]->GetPiecePtr() != nullptr) {
-				if (board.arrayOfSquares[i][j]->GetPiecePtr()->GetColor() == _color) {
+				if (board.arrayOfSquares[i][j]->GetPiecePtr()->GetColor() == playerColor) {
 					pieceLegalMoves = board.arrayOfSquares[i][j]->GetPiecePtr()->GetPseudoLegalMoves(board);
 					for (auto i : pieceLegalMoves) attackedSquares.push_back(i);
 				}
@@ -138,6 +143,29 @@ std::vector<std::pair<int, int>> GameLogic::GetSquaresPlayerAttacks(Board& board
 		}
 	}
 	return attackedSquares;
+}
+
+std::vector<std::pair<int, int>> GameLogic::GetPlayerValidMoves(Board& board, Move& moveManager, Color playerColor)
+{
+	std::vector<std::pair<int, int>> pieceLegalMoves;
+	std::vector<std::pair<int, int>> validMoves;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			pieceLegalMoves.resize(0);
+			if (board.arrayOfSquares[i][j]->GetPiecePtr() != nullptr) {
+				if (board.arrayOfSquares[i][j]->GetPiecePtr()->GetColor() == playerColor) {
+					pieceLegalMoves = board.arrayOfSquares[i][j]->GetPiecePtr()->GetPseudoLegalMoves(board);
+					pieceLegalMoves = ValidateMoves(board.arrayOfSquares[i][j], moveManager, board, pieceLegalMoves);
+					for (auto i : pieceLegalMoves) validMoves.push_back(i);
+				}
+
+			}
+		}
+	}
+	
+	return validMoves;
 }
 
 bool GameLogic::IsPlayerKingChecked(Board& board, Color player)
@@ -156,4 +184,48 @@ bool GameLogic::IsPlayerKingChecked(Board& board, Color player)
 		}
 	}
 	return false;
+}
+
+void GameLogic::CheckGameState(Board& board, Move& moveManager)
+{
+	whiteKingChecked = false;
+	blackKingChecked = false;
+	SetGameState(GameState::NORMAL);
+	if (IsPlayerKingChecked(board, Color::WHITE))
+	{
+		whiteKingChecked = true;
+		SetGameState(GameState::CHECK);
+		std::cout << "check";
+	}
+
+	if (IsPlayerKingChecked(board, Color::BLACK))
+	{
+		blackKingChecked = true;
+		SetGameState(GameState::CHECK);
+		std::cout << "check";
+	}
+	if ((!whiteKingChecked && GetPlayerValidMoves(board, moveManager, Color::WHITE).size() == 0)
+		|| (!blackKingChecked && GetPlayerValidMoves(board, moveManager, Color::BLACK).size() == 0))
+	{
+		SetGameState(GameState::STALEMATE);
+		std::cout << "stalemate";
+		return;
+		//stalemate
+	}
+	if (whiteKingChecked && GetPlayerValidMoves(board, moveManager, Color::WHITE).size() == 0)
+	{
+		SetGameState(GameState::CHECKMATE);
+		std::cout << "checkmate";
+		return;
+		//black won by checkmate
+	}
+	if (blackKingChecked && GetPlayerValidMoves(board, moveManager, Color::BLACK).size() == 0)
+	{
+		SetGameState(GameState::CHECKMATE);
+		std::cout << "checkmate";
+		return;
+		//white won by checkmate
+	}
+
+
 }

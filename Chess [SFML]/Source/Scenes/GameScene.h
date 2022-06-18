@@ -32,6 +32,7 @@ private:
 	Move moveManager;
 	GameLogic logic;
 	Square* currentlyClickedSquare;
+	
 	std::vector<std::pair<int, int>> moves;
 
 

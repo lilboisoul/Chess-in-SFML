@@ -107,6 +107,20 @@ void GameScene::HandleEvents(sf::Event& ev)
 			return;
 		}
 	}
+	if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Right && MouseOnChessboard(appPtr->GetWindow(), boardPtr->boardGameObject))
+	{
+		Square* squareHovered = boardPtr->GetCurrentlyHoveredTile(GetAppPtr()->GetWindow());
+		if (!squareHovered->IsRightClicked())
+		{
+			squareHovered->SetRightClicked(true);
+			return;
+		}
+		else
+		{
+			squareHovered->SetRightClicked(false);
+			return;
+		}
+	}
 }
 
 void GameScene::HandleInput(float deltaTime)
@@ -116,7 +130,7 @@ void GameScene::HandleInput(float deltaTime)
 
 void GameScene::Update(float deltaTime)
 {
-
+	logic.CheckGameState(*boardPtr, moveManager);
 }
 
 void GameScene::Render(sf::RenderTarget& renderer)

@@ -20,17 +20,20 @@ public:
 	std::string				GetBoardPos();
 	bool					GetClicked();
 
-	void Render(sf::RenderTarget& renderer);
 
-	bool IsHovered(sf::Vector2i& mousePos);
 	
+	bool IsHovered(sf::Vector2i& mousePos);
 	void SetHighlighted(bool _val);
 	bool IsHighlighted();
+	void SetRightClicked(bool _val);
+	bool IsRightClicked();
 
+	void Render(sf::RenderTarget& renderer);
 private:
 	App* appPtr;
 	Color squareColor;
 	std::unique_ptr<Piece> piecePtr;
 	std::string boardPos;
 	bool isClicked;
+	bool isRightClicked;
 };

@@ -4,6 +4,18 @@
 
 constexpr float SQUAREWIDTH = 100.0f;
 
+void ResetSquareColor(sf::RectangleShape& square, Color squareColor)
+{
+	if (squareColor == Color::WHITE)
+	{
+		square.setFillColor(sf::Color(239, 231, 219, 255));
+	}
+	else
+	{
+		square.setFillColor(sf::Color(155, 103, 60, 255));
+
+	}
+}
 void ClickSquare(sf::RectangleShape& square)
 {
 	square.setFillColor(sf::Color(229, 107, 107, 255));
@@ -31,6 +43,7 @@ Square::Square(App* _app, std::string _boardPos, sf::Vector2f _position) : appPt
 	squareGameObject.setOutlineColor(sf::Color::Black);
 	squareGameObject.setOutlineThickness(1.f);
 	isClicked = false;
+	isRightClicked = false;
 }
 
 Square::~Square()
@@ -82,28 +95,42 @@ void Square::SetHighlighted(bool _val)
 		squareGameObject.setFillColor(sf::Color(220, 59, 25, 255));
 		return;
 	}
-	else
+	else 
 	{
-		if (squareColor == Color::WHITE)
-		{
-			squareGameObject.setFillColor(sf::Color(239, 231, 219, 255));
-		}
-		else
-		{
-			squareGameObject.setFillColor(sf::Color(155, 103, 60, 255));
-
-		}
+		ResetSquareColor(squareGameObject, squareColor);
+		return;
 	}
-	return;
 }
 
 bool Square::IsHighlighted()
 {
 	if (squareGameObject.getFillColor() == sf::Color(220, 59, 25, 255))
-	{
 		return true;
-	}
 	return false;
+}
+
+bool Square::IsRightClicked()
+{
+	return isRightClicked;
+}
+
+void Square::SetRightClicked(bool _val)
+{
+	if (!GetClicked() && !IsHighlighted())
+	{
+		if (_val)
+		{
+			squareGameObject.setFillColor(sf::Color::Red);
+			isRightClicked = true;
+			return;
+		}
+		else
+		{
+			ResetSquareColor(squareGameObject, squareColor);
+			isRightClicked = false;
+			return;
+		}
+	}
 }
 
 void Square::SetClicked(bool val)
@@ -115,7 +142,7 @@ void Square::SetClicked(bool val)
 	}
 	else
 	{
-		UnclickSquare(squareGameObject, squareColor);
+		ResetSquareColor(squareGameObject, squareColor);
 	}
 
 }
