@@ -67,8 +67,8 @@ void Board::InitBoardGameObject()
 {
 	sf::Vector2u windowsize = GetAppPtr()->GetWindowSize();
 
-	this->boardGameObject.setPosition({ windowsize.x / 30.0f, windowsize.y / 30.0f });
-	this->boardGameObject.setSize({ windowsize.x * 0.8f, windowsize.y * 0.8f });
+	this->boardGameObject.setPosition({ windowsize.x / 30.0f, windowsize.y / 10.0f });
+	this->boardGameObject.setSize({ 800.0f, 800.0f });
 	this->boardGameObject.setFillColor(sf::Color::Black);
 	this->boardGameObject.setOutlineColor(sf::Color::White);
 	this->boardGameObject.setOutlineThickness(2.f);

@@ -12,6 +12,8 @@ Pawn::Pawn(App* _app, Color _color, std::string& _boardPos, char _id) : Piece(_a
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bP"));
 	}
+	if (_boardPos[1] != '1' && _color == Color::WHITE) Moved();
+	if (_boardPos[1] != '7' && _color == Color::BLACK) Moved();
 }
 
 Piece* Pawn::clone() const

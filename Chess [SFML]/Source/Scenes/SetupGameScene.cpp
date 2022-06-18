@@ -5,7 +5,7 @@
 
 SetupGameScene::SetupGameScene(App* _app) : Scene(), appPtr(_app)
 {
-
+	
 }
 SetupGameScene::~SetupGameScene()
 {

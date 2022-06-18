@@ -33,6 +33,7 @@ private:
 	GameLogic logic;
 	Square* currentlyClickedSquare;
 	
+	sf::RectangleShape background;
 	std::vector<std::pair<int, int>> moves;
 
 

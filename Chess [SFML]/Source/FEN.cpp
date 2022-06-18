@@ -5,6 +5,8 @@
 FEN::FEN()
 {
 	fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+	//fenString = "8/3P4/8/7k/5K2/8/8/8 w - - 0 1";
+	fenString = "8/8/8/5k2/7K/8/3p4/8 w - - 0 1";
 	ConvertFEN(fenString);
 }
 FEN::FEN(std::string _fenString) : fenString(_fenString)
