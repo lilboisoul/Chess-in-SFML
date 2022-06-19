@@ -12,69 +12,16 @@ bool MouseOnChessboard(sf::RenderWindow& window, sf::RectangleShape& board)
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	return board.getGlobalBounds().contains((float)mousePos.x, (float)mousePos.y);
 }
-bool IsPawn(Square& square)
-{
-	if (square.GetPiecePtr()->GetID() == 'p' || square.GetPiecePtr()->GetID() == 'P')
-		return true;
-	return false;
-}
-bool IsPromotionSquare(Square& square)
-{
-	if (square.GetBoardPos()[1] - 48 == 8 || square.GetBoardPos()[1] - 48 == 1)
-		return true;
-	return false;
-}
-std::unique_ptr<Piece> PromotePawn(App* appPtr, Square& squareHovered, char playerChoice)
-{
-	Color player_color = squareHovered.GetPiecePtr()->GetColor();
-	std::string boardPos = squareHovered.GetBoardPos();
-	switch (playerChoice)
-	{
-	case 'q':
-		if (player_color == Color::WHITE)
-		{
-			return std::make_unique<Queen>(appPtr, player_color, boardPos, 'q');
-		}
-		return std::make_unique<Queen>(appPtr, player_color, boardPos, 'Q');
-		
-	case 'n':
-		if (player_color == Color::WHITE)
-		{
-			return std::make_unique<Knight>(appPtr, player_color, boardPos, 'n');
-		}
-		return std::make_unique<Knight>(appPtr, player_color, boardPos, 'N');
-		
-	case 'b':
-		if (player_color == Color::WHITE)
-		{
-			return std::make_unique<Bishop>(appPtr, player_color, boardPos, 'b');
-		}
-		return std::make_unique<Bishop>(appPtr, player_color, boardPos, 'B');
-		
-	case 'r':
-		if (player_color == Color::WHITE)
-		{
-			return std::make_unique<Rook>(appPtr, player_color, boardPos, 'r');
-		}
-		return std::make_unique<Rook>(appPtr, player_color, boardPos, 'R');
-		
-	}
 
-}
-void PawnPromotionManager(App* appPtr, Square& square)
+
+void AfterCastlingManager(App* appPtr, Square& square)
 {
-	if (IsPawn(square))
-	{
-		if (IsPromotionSquare(square))
-		{
-			char playerChoice = 'q';
-			square.SetPiece(PromotePawn(appPtr, square, playerChoice));
-		}
-	}
+	
 }
 GameScene::GameScene(App* _app, FEN _fen, GameMode _gamemode): Scene(), appPtr(_app), fen(_fen), moveManager(_app), logic(_gamemode, _fen)
 {
 	boardPtr = new Board(appPtr, fen.GetPieces());
+	logic.SetBoardPtr(boardPtr);
 	background.setSize(static_cast<sf::Vector2f>(appPtr->GetWindowSize()));
 	background.setTexture(ResourceManager::Get().GetTexture("backgroundGame"));
 	currentlyClickedSquare = nullptr;
@@ -100,7 +47,11 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 	moveManager.SetSquareClicked(squareHovered);
 	moves.clear();
 	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
-	moves = logic.ValidateMoves(squareHovered, moveManager, *boardPtr, moves);
+	moves = logic.ValidateMoves(squareHovered, moveManager, moves);
+	if (pieceHovered->GetID() == 'k' || pieceHovered->GetID() == 'K')
+	{
+		moves = logic.ValidateCastlingMoves(*squareHovered, moves);
+	}
 
 	boardPtr->HighlightMoves(moves);
 }
@@ -108,11 +59,31 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 void GameScene::DropPiece(Square* squareHovered, Piece* pieceHovered)
 {
 	if (squareHovered) {
-		if (logic.CheckMoveLegality(*boardPtr, *squareHovered, moves) == true)
+		if (logic.CheckMoveLegality(*squareHovered, moves))
 		{
+			//temporary variables designed to help castling
+			int x_distance = std::abs(((int)moveManager.GetSquareClicked()->GetBoardPos()[0] - 96) - (int)(squareHovered->GetBoardPos()[0] - 96));
+			int side = ((int)(squareHovered->GetBoardPos()[0] - 96) - ((int)moveManager.GetSquareClicked()->GetBoardPos()[0] - 96));
+
+			if (moveManager.GetSquareClicked()->GetPiecePtr())
+			{
+				logic.SetDrawMoves(1);
+			}
 			moveManager.GetSquareClicked()->GetPiecePtr()->Moved();
 			moveManager.MakeMove(*moveManager.GetSquareClicked(), *squareHovered);
-			PawnPromotionManager(appPtr, *squareHovered);
+
+			if (squareHovered->GetPiecePtr()->GetID() == 'p' || squareHovered->GetPiecePtr()->GetID() == 'P')
+			{
+				logic.PawnPromotionManager(appPtr, *squareHovered);
+				logic.SetDrawMoves(1);
+			}
+			else if ((squareHovered->GetPiecePtr()->GetID() == 'k' || squareHovered->GetPiecePtr()->GetID() == 'K') && x_distance > 1)
+			{	
+				std::cout << x_distance << side << "\n";
+				logic.Castle(side, moveManager, *squareHovered);
+				logic.SetDrawMoves(logic.GetDrawMoves() + 1);
+			}
+
 			AfterMove();
 			return;
 		}

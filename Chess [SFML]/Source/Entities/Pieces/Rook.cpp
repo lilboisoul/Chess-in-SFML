@@ -8,6 +8,8 @@ Rook::Rook(App* _app, Color _color, std::string& _boardPos, char _id) : Piece(_a
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bR"));
 	}
+	if ((_boardPos != "a1" && _boardPos != "h1") && _color == Color::WHITE) Moved();
+	if ((_boardPos != "a8" && _boardPos != "h8") && _color == Color::BLACK) Moved();
 }
 
 Piece* Rook::clone() const
@@ -33,4 +35,9 @@ std::vector<std::pair<int, int>> Rook::GetPseudoLegalMoves(Board& board)
 	for (auto i : checkForAvailableSquares(board, x, y, -1, 0))
 		legalMoves.push_back(i);
 	return legalMoves;
+}
+
+std::vector<std::pair<int, int>> Rook::GetAttackedSquares(Board& board)
+{
+	return GetPseudoLegalMoves(board);
 }

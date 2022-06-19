@@ -27,7 +27,8 @@ public:
 	bool IsHighlighted();
 	void SetRightClicked(bool _val);
 	bool IsRightClicked();
-
+	void SetAttacked(bool _val);
+	bool IsAttacked();
 	void Render(sf::RenderTarget& renderer);
 private:
 	App* appPtr;
@@ -36,4 +37,5 @@ private:
 	std::string boardPos;
 	bool isClicked;
 	bool isRightClicked;
+	bool isAttacked;
 };

@@ -12,8 +12,8 @@ Pawn::Pawn(App* _app, Color _color, std::string& _boardPos, char _id) : Piece(_a
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bP"));
 	}
-	if (_boardPos[1] != '1' && _color == Color::WHITE) Moved();
-	if (_boardPos[1] != '7' && _color == Color::BLACK) Moved();
+	if (_boardPos[1] - 48 != 2 && _color == Color::WHITE) Moved();
+	if (_boardPos[1] - 48 != 7 && _color == Color::BLACK) Moved();
 }
 
 Piece* Pawn::clone() const
@@ -56,4 +56,22 @@ std::vector<std::pair<int, int>> Pawn::GetPseudoLegalMoves(Board& board)
 
 	return pseudoLegalMoves;
  
+}
+
+std::vector<std::pair<int, int>> Pawn::GetAttackedSquares(Board& board)
+{
+	int x = GetBoardPos()[0] - 96;
+	int y = GetBoardPos()[1] - 48;
+	int one;
+	GetColor() == Color::WHITE ? one = 1 : one = -1;
+	std::vector<std::pair<int, int>> attackedSquares;
+	if (isInBounds(x - 1, y + one))
+		{
+			attackedSquares.push_back({ x - 1, y + one });
+		}
+	if (isInBounds(x + 1, y + one))
+		{
+			attackedSquares.push_back({ x + 1, y + one });
+		}
+	return attackedSquares;
 }

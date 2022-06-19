@@ -33,6 +33,7 @@ public:
 	std::vector<std::pair<int, int>> checkForAvailableSquares(Board& board, int x, int y, int offsetX, int offsetY);
 
 	virtual std::vector<std::pair<int, int>> GetPseudoLegalMoves(Board& board) = 0;
+	virtual std::vector<std::pair<int, int>> GetAttackedSquares(Board& board) = 0;
 
 	sf::RectangleShape pieceGameObject;
 private:

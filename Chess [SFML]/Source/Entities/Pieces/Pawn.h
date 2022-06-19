@@ -9,6 +9,7 @@ public:
 
 	Piece* clone() const;
 	std::vector<std::pair<int, int>> GetPseudoLegalMoves(Board& board);
+	std::vector<std::pair<int, int>> GetAttackedSquares(Board& board);
 
 };
 

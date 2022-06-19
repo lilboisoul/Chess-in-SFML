@@ -18,34 +18,46 @@ class GameLogic
 public:
 	GameLogic(GameMode _gamemode, FEN fenString);
 	~GameLogic() {};
-
+	Board*		GetBoardPtr();
 	GameMode	GetGameMode();
 	Color		GetCurrentPlayer();
-	//bool		GetWhiteKingCastled();
-	//bool		GetBlackKingCastled();
+	bool		CanWhiteCastleKingside();
+	bool		CanWhiteCastleQueenside();
+	bool		CanBlackCastleKingside();
+	bool		CanBlackCastleQueenside();
 	//std::string GetEnPassantMove();
 	int			GetDrawMoves();
 	int			GetTotalMoves();
-	
+
+	void SetBoardPtr(Board* _boardPtr);
+	void SetCastlingVariables(FEN fen);
 	void SetCurrentPlayer(std::string player);
 	void SetGameState(GameState state);
-	//void SetWhiteKingCastled(bool _val);
-	//void SetBlackKingCastled(bool _val);
+	void SetWhiteKingCastleKingside(bool _val);
+	void SetWhiteKingCastleQueenside(bool _val);
+	void SetBlackKingCastleKingside(bool _val);
+	void SetBlackKingCastleQueenside(bool _val);
+	void WhiteCastled();
+	void BlackCastled();
 	void SetDrawMoves(unsigned int _moves);
 	void SetTotalMoves(unsigned int _moves);
 	
 
-	bool CheckMoveLegality(Board& board, Square& destination, std::vector<std::pair<int, int>> moves);
-	std::vector<std::pair<int, int>> ValidateMoves(Square* currentSquare, Move& moveManager, Board& board, std::vector<std::pair<int, int>> moves);
-	std::string GetKingBoardPos(Board& board, Color player);
+	bool							 CheckMoveLegality(Square& destination, std::vector<std::pair<int, int>> moves);
+	std::vector<std::pair<int, int>> ValidateMoves(Square* currentSquare, Move& moveManager, std::vector<std::pair<int, int>> moves);
+	std::string						 GetKingBoardPos(Board& board, Color player);
 	std::vector<std::pair<int, int>> GetSquaresPlayerAttacks(Board& board, Color playerColor);
 	std::vector<std::pair<int, int>> GetPlayerValidMoves(Board& board, Move& moveManager, Color playerColor);
-	bool IsPlayerKingChecked(Board& board, Color player);
+	bool						     IsPlayerKingChecked(Board& board, Color player);
 
-	void CheckGameState(Board& board, Move& moveManager);
+	void							 CheckGameState(Board& board, Move& moveManager);
+	void							 PawnPromotionManager(App* appPtr, Square& square);
+	std::vector<std::pair<int, int>> ValidateCastlingMoves(Square& square, std::vector<std::pair<int, int>> moves);
+	void							 Castle(int side, Move& moveManager, Square& square);
+
 
 private:
-
+	Board* boardPtr;
 	GameMode currentGameMode;
 	GameState currentGameState;
 	Color currentPlayer;
@@ -53,8 +65,12 @@ private:
 	bool whiteKingChecked;
 	bool blackKingChecked;
 
-	bool whiteKingCastled;
-	bool blackKingCastled;
+	bool canWhiteCastleKingside;
+	bool canWhiteCastleQueenside;
+	bool canBlackCastleKingside;
+	bool canBlackCastleQueenside;
+	bool whiteCastled;
+	bool blackCastled;
 
 	std::string enPassantMove;
 

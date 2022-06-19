@@ -8,6 +8,8 @@ Bishop::Bishop(App* _app, Color _color, std::string& _boardPos, char _id) : Piec
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bB"));
 	}
+	if ((_boardPos != "c1" && _boardPos != "f1") && _color == Color::WHITE) Moved();
+	if ((_boardPos != "c8" && _boardPos != "f8") && _color == Color::BLACK) Moved();
 }
 
 Piece* Bishop::clone() const
@@ -33,4 +35,9 @@ std::vector<std::pair<int, int>> Bishop::GetPseudoLegalMoves(Board& board)
 	for (auto i : checkForAvailableSquares(board, x, y, -1, -1))
 		legalMoves.push_back(i);
 	return legalMoves;
+}
+
+std::vector<std::pair<int, int>> Bishop::GetAttackedSquares(Board& board)
+{
+	return GetPseudoLegalMoves(board);
 }

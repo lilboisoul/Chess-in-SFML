@@ -8,6 +8,8 @@ Knight::Knight(App* _app, Color _color, std::string& _boardPos, char _id) : Piec
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bN"));
 	}
+	if ((_boardPos != "b1" && _boardPos != "g1") && _color == Color::WHITE) Moved();
+	if ((_boardPos != "b8" && _boardPos != "g8") && _color == Color::BLACK) Moved();
 }
 
 Piece* Knight::clone() const
@@ -33,4 +35,9 @@ std::vector<std::pair<int, int>> Knight::GetPseudoLegalMoves(Board& board)
 				legalMoves.push_back({ moveX, moveY });
 	}
 	return legalMoves;
+}
+
+std::vector<std::pair<int, int>> Knight::GetAttackedSquares(Board& board)
+{
+	return GetPseudoLegalMoves(board);
 }

@@ -44,6 +44,7 @@ Square::Square(App* _app, std::string _boardPos, sf::Vector2f _position) : appPt
 	squareGameObject.setOutlineThickness(1.f);
 	isClicked = false;
 	isRightClicked = false;
+	isAttacked = false;
 }
 
 Square::~Square()
@@ -112,6 +113,16 @@ bool Square::IsHighlighted()
 bool Square::IsRightClicked()
 {
 	return isRightClicked;
+}
+
+void Square::SetAttacked(bool _val)
+{
+	isAttacked = _val;
+}
+
+bool Square::IsAttacked()
+{
+	return isAttacked;
 }
 
 void Square::SetRightClicked(bool _val)

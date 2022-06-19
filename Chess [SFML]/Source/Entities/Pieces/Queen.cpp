@@ -8,6 +8,8 @@ Queen::Queen(App* _app, Color _color, std::string& _boardPos, char _id) : Piece(
 	else {
 		pieceGameObject.setTexture(ResourceManager::Get().GetTexture("bQ"));
 	}
+	if (_boardPos != "d1" && _color == Color::WHITE) Moved();
+	if (_boardPos != "d8" && _color == Color::BLACK) Moved();
 }
 
 Piece* Queen::clone() const
@@ -47,4 +49,9 @@ std::vector<std::pair<int, int>> Queen::GetPseudoLegalMoves(Board& board)
 		legalMoves.push_back(i);
 
 	return legalMoves;
+}
+
+std::vector<std::pair<int, int>> Queen::GetAttackedSquares(Board& board)
+{
+	return GetPseudoLegalMoves(board);
 }
