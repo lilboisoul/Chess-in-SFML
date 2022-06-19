@@ -32,7 +32,7 @@ public:
 	bool isSameColor(Board& board, int x1, int y1, int x2, int y2);
 	std::vector<std::pair<int, int>> checkForAvailableSquares(Board& board, int x, int y, int offsetX, int offsetY);
 
-	virtual std::vector<std::pair<int, int>> GetPseudoLegalMoves(Board& board) = 0;
+	virtual std::vector<std::pair<int, int>> GetPseudoLegalMoves(Board& board, std::string enPassantSquare) = 0;
 	virtual std::vector<std::pair<int, int>> GetAttackedSquares(Board& board) = 0;
 
 	sf::RectangleShape pieceGameObject;

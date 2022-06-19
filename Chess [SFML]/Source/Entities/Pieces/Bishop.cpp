@@ -17,7 +17,7 @@ Piece* Bishop::clone() const
 	return new Bishop(*this);
 }
 
-std::vector<std::pair<int, int>> Bishop::GetPseudoLegalMoves(Board& board)
+std::vector<std::pair<int, int>> Bishop::GetPseudoLegalMoves(Board& board, std::string enPassantSquare)
 {
 	int x = GetBoardPos()[0] - 96;
 	int y = GetBoardPos()[1] - 48;
@@ -39,5 +39,5 @@ std::vector<std::pair<int, int>> Bishop::GetPseudoLegalMoves(Board& board)
 
 std::vector<std::pair<int, int>> Bishop::GetAttackedSquares(Board& board)
 {
-	return GetPseudoLegalMoves(board);
+	return GetPseudoLegalMoves(board, "a1");
 }

@@ -21,7 +21,7 @@ Piece* Pawn::clone() const
 	return new Pawn(*this);
 }
 
-std::vector<std::pair<int, int>> Pawn::GetPseudoLegalMoves(Board& board)
+std::vector<std::pair<int, int>> Pawn::GetPseudoLegalMoves(Board& board, std::string enPassantSquare)
 {
 	int x = GetBoardPos()[0] - 96;
 	int y = GetBoardPos()[1] - 48;
@@ -41,17 +41,28 @@ std::vector<std::pair<int, int>> Pawn::GetPseudoLegalMoves(Board& board)
 			pseudoLegalMoves.push_back({ x , y + one });
 		}
 	if (isInBounds(x - 1, y + one))
-		if (!isEmpty(board, x - 1, y + one))
+		if (!isEmpty(board, x - 1, y + one)) {
 			if (!isSameColor(board, x, y, x - 1, y + one))
 			{
 				pseudoLegalMoves.push_back({ x - 1, y + one });
 			}
+		}
+		else if (board.arrayOfSquares[x - 2][y + one - 1]->GetBoardPos() == enPassantSquare)
+		{
+			pseudoLegalMoves.push_back({ x - 1, y + one });
+		}
 	if (isInBounds(x + 1, y + one))
-		if (!isEmpty(board, x + 1, y + one))
+		if (!isEmpty(board, x + 1, y + one)) {
 			if (!isSameColor(board, x, y, x + 1, y + one))
 			{
 				pseudoLegalMoves.push_back({ x + 1, y + one });
 			}
+		}
+		else if (board.arrayOfSquares[x][y + one - 1]->GetBoardPos() == enPassantSquare)
+		{
+			pseudoLegalMoves.push_back({ x + 1, y + one });
+		}
+		
 
 
 	return pseudoLegalMoves;

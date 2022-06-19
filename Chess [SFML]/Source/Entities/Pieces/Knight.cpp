@@ -17,7 +17,7 @@ Piece* Knight::clone() const
 	return new Knight(*this);
 }
 
-std::vector<std::pair<int, int>> Knight::GetPseudoLegalMoves(Board& board)
+std::vector<std::pair<int, int>> Knight::GetPseudoLegalMoves(Board& board, std::string enPassantSquare)
 {
 	int x = GetBoardPos()[0] - 96;
 	int y = GetBoardPos()[1] - 48;
@@ -39,5 +39,5 @@ std::vector<std::pair<int, int>> Knight::GetPseudoLegalMoves(Board& board)
 
 std::vector<std::pair<int, int>> Knight::GetAttackedSquares(Board& board)
 {
-	return GetPseudoLegalMoves(board);
+	return GetPseudoLegalMoves(board, "a1");
 }

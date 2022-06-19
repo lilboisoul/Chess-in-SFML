@@ -25,6 +25,7 @@ GameScene::GameScene(App* _app, FEN _fen, GameMode _gamemode): Scene(), appPtr(_
 	background.setSize(static_cast<sf::Vector2f>(appPtr->GetWindowSize()));
 	background.setTexture(ResourceManager::Get().GetTexture("backgroundGame"));
 	currentlyClickedSquare = nullptr;
+	enPassantSquare = "";
 }
 GameScene::~GameScene()
 {
@@ -46,7 +47,7 @@ void GameScene::SelectPiece(Square* squareHovered, Piece* pieceHovered)
 	squareHovered->SetClicked(true);
 	moveManager.SetSquareClicked(squareHovered);
 	moves.clear();
-	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr);
+	moves = pieceHovered->GetPseudoLegalMoves(*boardPtr, enPassantSquare);
 	moves = logic.ValidateMoves(squareHovered, moveManager, moves);
 	if (pieceHovered->GetID() == 'k' || pieceHovered->GetID() == 'K')
 	{
@@ -61,8 +62,9 @@ void GameScene::DropPiece(Square* squareHovered, Piece* pieceHovered)
 	if (squareHovered) {
 		if (logic.CheckMoveLegality(*squareHovered, moves))
 		{
-			//temporary variables designed to help castling
+			//temporary variables for castling and en passant
 			int x_distance = std::abs(((int)moveManager.GetSquareClicked()->GetBoardPos()[0] - 96) - (int)(squareHovered->GetBoardPos()[0] - 96));
+			int y_distance = std::abs(((int)moveManager.GetSquareClicked()->GetBoardPos()[1] - 48) - (int)(squareHovered->GetBoardPos()[1] - 48));
 			int side = ((int)(squareHovered->GetBoardPos()[0] - 96) - ((int)moveManager.GetSquareClicked()->GetBoardPos()[0] - 96));
 
 			if (moveManager.GetSquareClicked()->GetPiecePtr())
@@ -74,12 +76,17 @@ void GameScene::DropPiece(Square* squareHovered, Piece* pieceHovered)
 
 			if (squareHovered->GetPiecePtr()->GetID() == 'p' || squareHovered->GetPiecePtr()->GetID() == 'P')
 			{
+				if (y_distance == 2) {
+					enPassantSquare = logic.SetEnPassantSquare(*squareHovered);
+				}
+				if (x_distance != 0) {
+					logic.TakeEnPassant(*squareHovered);
+				}
 				logic.PawnPromotionManager(appPtr, *squareHovered);
 				logic.SetDrawMoves(1);
 			}
 			else if ((squareHovered->GetPiecePtr()->GetID() == 'k' || squareHovered->GetPiecePtr()->GetID() == 'K') && x_distance > 1)
 			{	
-				std::cout << x_distance << side << "\n";
 				logic.Castle(side, moveManager, *squareHovered);
 				logic.SetDrawMoves(logic.GetDrawMoves() + 1);
 			}
@@ -164,7 +171,7 @@ void GameScene::HandleInput(float deltaTime)
 
 void GameScene::Update(float deltaTime)
 {
-	logic.CheckGameState(*boardPtr, moveManager);
+	logic.CheckGameState(moveManager);
 }
 
 void GameScene::Render(sf::RenderTarget& renderer)

@@ -18,7 +18,7 @@ Piece* King::clone() const
 	return new King(*this);
 }
 
-std::vector<std::pair<int, int>> King::GetPseudoLegalMoves(Board& board)
+std::vector<std::pair<int, int>> King::GetPseudoLegalMoves(Board& board, std::string enPassantSquare)
 {
 	int x = GetBoardPos()[0] - 96;
 	int y = GetBoardPos()[1] - 48;
