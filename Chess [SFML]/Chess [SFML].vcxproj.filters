@@ -72,7 +72,7 @@
     <ClCompile Include="Source\UI\Element.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\Button.cpp">
+    <ClCompile Include="Source\UI\Textbox.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,7 +137,7 @@
     <ClInclude Include="Source\UI\Element.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UI\Button.h">
+    <ClInclude Include="Source\UI\Textbox.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

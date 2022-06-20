@@ -4,6 +4,7 @@
 #include "../Entities/Board.h"
 #include "../Move.h"
 #include "../GameLogic.h"
+#include "../UI/Textbox.h"
 
 class App;
 class GameScene : public Scene
@@ -36,7 +37,14 @@ private:
 	std::string enPassantSquare;
 	sf::RectangleShape background;
 
+	bool threeChecksWinCondition;
 
+	Textbox endResult;
+	Textbox whiteClock;
+	Textbox blackClock;
+
+	float whiteSecondsLeft;
+	float blackSecondsLeft;
 
 	std::vector<std::pair<int, int>> moves;
 
