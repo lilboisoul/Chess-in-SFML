@@ -4,6 +4,7 @@
 #include "../Entities/Board.h"
 #include "../Move.h"
 #include "../GameLogic.h"
+
 class App;
 class GameScene : public Scene
 {
@@ -34,6 +35,9 @@ private:
 	Square* currentlyClickedSquare;
 	std::string enPassantSquare;
 	sf::RectangleShape background;
+
+
+
 	std::vector<std::pair<int, int>> moves;
 
 

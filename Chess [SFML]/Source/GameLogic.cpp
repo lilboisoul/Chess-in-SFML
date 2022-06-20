@@ -329,10 +329,12 @@ void GameLogic::TakeEnPassant(Square& square)
 	if (GetCurrentPlayer() == Color::WHITE)
 	{
 		GetBoardPtr()->arrayOfSquares[x - 1][y - 2]->SetPiece(nullptr);
+		enPassantMove = "";
 	}
 	else
 	{
 		GetBoardPtr()->arrayOfSquares[x - 1][y]->SetPiece(nullptr);
+		enPassantMove = "";
 	}
 }
 
@@ -509,17 +511,5 @@ void GameLogic::CheckGameState(Move& moveManager)
 		return;
 		//white won by checkmate
 	}
-	
-	
-
-	
-	if (blackKingChecked && GetPlayerValidMoves(moveManager, Color::BLACK).size() == 0)
-	{
-		SetGameState(GameState::CHECKMATE);
-		std::cout << "checkmate";
-		return;
-		//white won by checkmate
-	}
-
 
 }

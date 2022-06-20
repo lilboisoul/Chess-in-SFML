@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\UI\Button.cpp" />
+    <ClCompile Include="Source\UI\Element.cpp" />
     <ClCompile Include="Source\Move.cpp" />
     <ClCompile Include="Source\GameLogic.cpp" />
     <ClCompile Include="Source\Entities\Pieces\Bishop.cpp" />
@@ -173,6 +175,8 @@
     <ClCompile Include="Source\Entities\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\UI\Button.h" />
+    <ClInclude Include="Source\UI\Element.h" />
     <ClInclude Include="Source\Move.h" />
     <ClInclude Include="Source\Entities\Pieces\Pieces.h" />
     <ClInclude Include="Source\GameLogic.h" />

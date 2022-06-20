@@ -2,18 +2,21 @@
 #include "Entities/Board.h"
 #include <filesystem>
 #include <fstream>
+#include <iostream>
+#include <regex>
 FEN::FEN()
 {
-	fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-	//fenString = "8/8/8/5k2/7K/8/3p4/8 w - - 0 1"; promotion FEN
+	//fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+	fenString = "8/8/8/5k2/7K/8/3p4/8 w - - 0 1"; //promotion FEN
+	//fenString = "" //stalemate FEN
+	//fenString = "" //checkmate FEN
+	fenString = VerifyFEN(fenString);
+
 	ConvertFEN(fenString);
 }
 FEN::FEN(std::string _fenString) : fenString(_fenString)
 {
-	if (fenString.empty())
-	{
-		fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-	}
+	fenString = VerifyFEN(fenString);
 	ConvertFEN(fenString);
 }
 
@@ -113,4 +116,18 @@ std::string FEN::GetDrawMoves()
 std::string FEN::GetTotalMoves()
 {
 	return fenSplit[5];
+}
+
+std::string FEN::VerifyFEN(std::string fen)
+{
+	std::regex fenRegex("[1-8rRnNpPkKqQbB/]+[\\s]{1}[wb]{1}[\\s]{1}[-kqKQ]{1,4}[\\s]{1}[-abcdefgh1-8]{1,2}[\\s]{1}[0-9]{1,}[\\s]{1}[0-9]{1,}");
+	if (std::regex_match(fen, fenRegex))
+	{
+		return fen;
+	}
+	else
+	{
+		std::cout << "FEN code wrong - loading default FEN.\n";
+		return "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+	}
 }

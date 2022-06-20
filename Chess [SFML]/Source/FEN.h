@@ -21,9 +21,9 @@ public:
 	std::string GetTotalMoves();
 
 
-
 private:
 	std::string fenString;
 	std::vector<std::string> fenSplit;
+	std::string VerifyFEN(std::string fen);
 };
 

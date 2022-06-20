@@ -13,11 +13,6 @@ bool MouseOnChessboard(sf::RenderWindow& window, sf::RectangleShape& board)
 	return board.getGlobalBounds().contains((float)mousePos.x, (float)mousePos.y);
 }
 
-
-void AfterCastlingManager(App* appPtr, Square& square)
-{
-	
-}
 GameScene::GameScene(App* _app, FEN _fen, GameMode _gamemode): Scene(), appPtr(_app), fen(_fen), moveManager(_app), logic(_gamemode, _fen)
 {
 	boardPtr = new Board(appPtr, fen.GetPieces());
